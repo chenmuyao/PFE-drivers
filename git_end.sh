@@ -8,7 +8,7 @@ echo "Push or not?(y/n)"
 
 read push
 
-if [$push == "y" || $push == "Y"] ;
+if [ $push == "y" || $push == "Y" ] ;
 then 
     echo "To which branch?"
     read branch
