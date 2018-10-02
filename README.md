@@ -3,7 +3,23 @@ Embedded Linux Drivers development
 
 
 
-### 2018/9/30 Let's start from here!
+### 02/10/2018 RdV N°1
+
+#### Points à aborder:
+
+- Les attendues du projet
+- Planification provisoire
+- Choix de la carte - Beaglebone Black
+- Manière de suivi 
+  - soutenances intermédiaires entre des périodes
+  - fréquence de suivi
+- Travail en cours 
+  - Muyao - Uboot+Linux sur la carte BBB
+  - Amal
+
+
+
+### 30/09/2018 Let's start from here!
 
 #### La planification provisoire
 
@@ -28,6 +44,4 @@ Embedded Linux Drivers development
   - Période 4 (4 Semaine) : __Block Driver__
     - Développement du driver pour une carte SD	 	chargé(e) : Muyao et Amal
   - 3 Semaines non programées (Gestion de risques, Rédaction du rapport, Nework Device...)
-
-  
 
