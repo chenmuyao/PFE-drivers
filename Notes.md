@@ -82,3 +82,79 @@ Simple run dmesg command
 
 
 
+### 2018.10.3-10.5
+
+#### Building UBOOT
+
+uboot : Mentioned above
+
+GCC compiler : arm-linux-gnueabihf-gcc (Ubuntu/Linaro 7.3.0-27ubuntu1~18.04) 7.3.0
+
+```shell
+chenmy@chenmy-UBT:~/ARMLINUX/PFE-drivers/uboot/u-boot-2017.09$ arm-linux-gnueabihf-gcc --version
+arm-linux-gnueabihf-gcc (Ubuntu/Linaro 7.3.0-27ubuntu1~18.04) 7.3.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+```
+
+Steps : 
+
+1. Compile the defconfig
+
+   1. find the defconfig provided by BBB in ./configs/am335x_boneblack_defconfig
+
+   2. `make am335x_boneblack_defconfig `
+
+      1. result 
+
+         ```
+         #
+         # configuration written to .config
+         #
+         
+         ```
+
+2. Compile the uboot image
+
+   1. `make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j4` (-jx to be faster, x is the core number)
+
+3. Result 
+
+   1. MLO, u-boot.img...
+
+
+#### Building Linux
+
+GCC
+
+Linux 4.4 : 
+
+```shell
+git clone https://github.com/beagleboard/linux.git
+git checkout 4.4
+```
+
+
+
+Steps : 
+
+Simple way : **change the ./jenkins_build.sh file , comment the last commande `make ARCH=arm clean`**
+
+Then run the ./jenkins_build.sh file
+
+Result : in ./arch/arm/boot  There will be the zImage
+
+
+
+Hard way (consulting jenkins_build.sh):
+
+1. Compile the defconfig `make ARCH=arm bb.org_defconfig`
+2. Compile the zImage  `make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage -j4`
+3. Compile the modules `make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules -j4`
+4. Compile the dtbs `make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- dtbs -j4`
+
+
+
+#### Flashing the sd card
+
