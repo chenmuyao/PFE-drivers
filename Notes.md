@@ -104,7 +104,7 @@ Steps :
 
    1. find the defconfig provided by BBB in ./configs/am335x_boneblack_defconfig
 
-   2. `make am335x_boneblack_defconfig `
+   2. `make am335x_boneblack_defconfig `// `make am335x_evm_defconfig ``make omap3_beagle_config `
 
       1. result 
 
@@ -157,4 +157,44 @@ Hard way (consulting jenkins_build.sh):
 
 
 #### Flashing the sd card
+
+Software : fdisk
+
+```sh
+sudo fdisk /dev/sdX
+p : show partition
+d : delete partition
+x : Expert mode 
+	h
+	s
+	c
+n : new partition
+	p
+	1
+	+6g
+n - p - 2 - use default values
+t - 1 - c Changed system type of partition 1 to c (W95 FAT32 (LBA))
+a - 1 Set as bootable
+w - write
+
+sudo mkfs.vfat -F 32 -n boot /dev/sdX1
+sudo mkfs.ext3 -L rootfs /dev/sdX2
+```
+
+Copy MLO then u-boot.img to the first partition on sd card (boot)
+
+It should be OK...
+
+
+
+#### PB
+
+**No output, nothing**
+
+Possible reason : 
+
+- SD card flashing method is wrong
+  - Have checked many tutos, found no different way
+- U-boot Problem
+  - Have used different config files...
 
