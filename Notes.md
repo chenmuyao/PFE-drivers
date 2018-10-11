@@ -227,3 +227,18 @@ FTDI Tx - Rx (Position 4)
 FTDI Rx - Tx (Position 5)
 
 **--------------------------------------------------------------------------------------------------------------------------------------------**
+
+
+
+#### PROBLEM SOLVED
+
+http://linux-sunxi.org/Bootable_SD_card 
+
+`dd` `if``=u-boot-sunxi-with-spl.bin of=${card} bs=1024 seek=8`
+
+http://processors.wiki.ti.com/index.php/AM335x_U-Boot_User%27s_Guide
+
+Select “u-boot-spl.bin” for the transfer
+
+
+
