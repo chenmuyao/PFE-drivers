@@ -198,3 +198,32 @@ Possible reason :
 - U-boot Problem
   - Have used different config files...
 
+
+
+### 2018.10.11 Install Debian System
+
+Resource : https://beagleboard.org/getting-started
+
+Images : https://beagleboard.org/latest-images
+
+Distro Chosen : Debian 9.5 2018-10-07 4GB SD IoT image
+
+Tool used : Etcher
+
+Process : Download Image - Etcher - Flash...
+
+
+
+**-----------------------------------------------------------  IMPORTANT------------------------------------------------------**
+
+Use a FTDI device to debug (to see all the booting process and even toggle with the Uboot)
+
+https://www.blaess.fr/christophe/2013/05/17/console-serie-de-debug-pour-beaglebone-black/
+
+GND - GND (**J1** on BBB, Black square)
+
+FTDI Tx - Rx (Position 4)
+
+FTDI Rx - Tx (Position 5)
+
+**--------------------------------------------------------------------------------------------------------------------------------------------**
