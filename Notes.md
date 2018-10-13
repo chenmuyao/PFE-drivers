@@ -241,4 +241,4 @@ http://processors.wiki.ti.com/index.php/AM335x_U-Boot_User%27s_Guide
 Select “u-boot-spl.bin” for the transfer
 
 
-
+http://processors.wiki.ti.com/index.php/Linux_Core_U-Boot_User%27s_Guide
