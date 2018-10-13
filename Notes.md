@@ -242,3 +242,22 @@ Select “u-boot-spl.bin” for the transfer
 
 
 
+**In fact, the ancient solution works, we just have to use DEBUGGER!!!**
+
+
+
+### 2018.10.14
+
+#### Pb Hang after "Starting Kernel..."
+
+[TI solution]: http://processors.wiki.ti.com/index.php/Kernel_-_Common_Problems_Booting_Linux#Problem_.231_-_No_more_output_is_seen_on_the_console_after_.22Starting_Kernel....22
+
+
+
+#### Solution
+
+Using Linux 3.8 uImage
+
+=> New Problem : Wrong ID
+
+Possible solution : Configuration(Try and Use env def config + omap)
