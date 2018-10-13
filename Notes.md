@@ -241,6 +241,7 @@ http://processors.wiki.ti.com/index.php/AM335x_U-Boot_User%27s_Guide
 Select “u-boot-spl.bin” for the transfer
 
 
+<<<<<<< HEAD
 
 **In fact, the ancient solution works, we just have to use DEBUGGER!!!**
 
@@ -261,3 +262,6 @@ Using Linux 3.8 uImage
 => New Problem : Wrong ID
 
 Possible solution : Configuration(Try and Use env def config + omap)
+=======
+http://processors.wiki.ti.com/index.php/Linux_Core_U-Boot_User%27s_Guide
+>>>>>>> 09f59e553e91010eebce2c962d4921cf68e36f81
