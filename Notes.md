@@ -259,9 +259,42 @@ Select “u-boot-spl.bin” for the transfer
 
 Using Linux 3.8 uImage
 
-=> New Problem : Wrong ID
+=> New Problem : Wrong ID  => Adding .dtb => New problem => hang after "booting the kernel"
 
-Possible solution : Configuration(Try and Use env def config + omap)
-=======
+```shell
+=> fatload mmc 0 0x82000000 uImage
+5587504 bytes read in 350 ms (15.2 MiB/s)
+=> fatload mmc 0 0x88000000 am335x-boneblack-uboot.dtb
+59066 bytes read in 6 ms (9.4 MiB/s)
+=> bootm 0x82000000 - 0x88000000
+## Booting kernel from Legacy Image at 82000000 ...
+   Image Name:   Linux-3.8.13
+   Created:      2018-10-13  15:12:14 UTC
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    5587440 Bytes = 5.3 MiB
+   Load Address: 80008000
+   Entry Point:  80008000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 88000000
+   Booting using the fdt blob at 0x88000000
+   Loading Kernel Image ... OK
+   Loading Device Tree to 8ffee000, end 8ffff6b9 ... OK
+
+Starting kernel ...
+
+Uncompressing Linux... done, booting the kernel.
+
+```
+
+
+
+Possible solution : Configuration(Try and Use env def config + omap) ========= NOT working
+
 http://processors.wiki.ti.com/index.php/Linux_Core_U-Boot_User%27s_Guide
->>>>>>> 09f59e553e91010eebce2c962d4921cf68e36f81
+
+
+
+For the newest problem , try to use other .dtb, not working.
+
+
+
