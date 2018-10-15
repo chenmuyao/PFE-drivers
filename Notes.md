@@ -298,3 +298,19 @@ For the newest problem , try to use other .dtb, not working.
 
 
 
+
+
+#### 2018.10.15 Resolved 
+
+[Solution]: http://processors.wiki.ti.com/index.php/AM335x_U-Boot_User%27s_Guide#SD_.28Secured_Digital_card.29	"Setting U-Boot environment using uEnv.txt"
+
+
+
+uEnv.txt : 
+
+```
+bootargs=console=ttyO0,115200n8 root=/dev/mmcblk0p2 mem=1G rw rootwait
+bootcmd=mmc rescan; fatload mmc 0 0x82000000 uImage; fatload mmc 0 0x88000000 am335x-boneblack.dtb; bootm 0x82000000 - 0x88000000
+uenvcmd=boot
+```
+
