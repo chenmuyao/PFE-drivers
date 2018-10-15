@@ -300,7 +300,7 @@ For the newest problem , try to use other .dtb, not working.
 
 
 
-#### 2018.10.15 Resolved 
+### 2018.10.15 Resolved 
 
 [Solution]: http://processors.wiki.ti.com/index.php/AM335x_U-Boot_User%27s_Guide#SD_.28Secured_Digital_card.29	"Setting U-Boot environment using uEnv.txt"
 
@@ -313,4 +313,58 @@ bootargs=console=ttyO0,115200n8 root=/dev/mmcblk0p2 mem=1G rw rootwait
 bootcmd=mmc rescan; fatload mmc 0 0x82000000 uImage; fatload mmc 0 0x88000000 am335x-boneblack.dtb; bootm 0x82000000 - 0x88000000
 uenvcmd=boot
 ```
+
+
+
+#### Summary
+
+zImage of Linux 4.4	Not working									Hang at "Starting Kernel..."
+
+uImage of Linux 3.8 	Not working without proper driver tree binary 	Error of wrong ID
+
+uImage of Linux 3.8	Not working without proper uEnv.txt			Hang at "booting the kernel."
+
+uImage of Linux 3.8 	WORKING with proper uEnv.txt
+
+
+
+#### File system
+
+resource : 
+
+https://getpocket.com/a/read/2346376898
+
+https://www.digikey.com/eewiki/display/linuxonarm/BeagleBone+Black#BeagleBoneBlack-Setuname_rin/boot/uEnv.txt
+
+http://www.armhf.com/boards/beaglebone-black/bbb-sd-install/
+
+
+
+Format SD card and copy file system
+
+```sh
+sudo umount /media/chenmy/rootfs 
+sudo mkfs.ext3 -L rootfs /dev/sdX2  # mkf4 not working : Cannot find file system
+tar xf ***-armhf-***.tar #unzip to local
+cd ***-armhf-***
+tar xvfp armhf-rootfs-****.tar -C /media/chenmy/rootfs/
+sync
+
+```
+
+ubuntu-18.04.1-minimal-armhf-2018-07-30 **working**
+
+```sh
+wget -c https://rcn-ee.com/rootfs/eewiki/minfs/ubuntu-18.04.1-minimal-armhf-2018-07-30.tar.xz
+```
+
+
+
+debian-9.5-minimal-armhf-2018-07-30.tar **Not working** 	Error : "Unable to cd /home/debian"
+
+
+
+**Till now, UBUNTU on BBB!**
+
+
 
