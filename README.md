@@ -3,6 +3,30 @@ Embedded Linux Drivers development
 
 
 
+### 16/10/2018 RdV N°3
+
+#### Bilan de Période 1
+
+- Compilation croisée (Muyao) OK
+- Première rencontre avec les drivers OK
+
+
+
+#### Travail à venir
+
+- Mettre en place un driver simple (print ou LED)
+- Etudier et programmer un driver pour une périphérique (SPI, I2C...)
+
+
+
+
+
+### 09/10/2018 RdV N°2
+
+- Signaler des problèmes concernant U-boot
+
+
+
 ### 02/10/2018 RdV N°1
 
 #### Points à aborder:
