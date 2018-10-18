@@ -469,7 +469,33 @@ cp ./arch/arm/boot/uImage /dev/.../boot
 cp ./arch/arm/boot/dts/am335x-boneblack.dtb /dev/.../boot
 ```
 
+- Ajout du fichier **uEnv.txt** dans /dev/.../boot
+
+```
+bootargs=console=ttyO0,115200n8 root=/dev/mmcblk0p2 mem=1G rw rootwait
+bootcmd=mmc rescan; fatload mmc 0 0x82000000 uImage; fatload mmc 0 0x88000000 am335x-boneblack.dtb; bootm 0x82000000 - 0x88000000
+uenvcmd=boot
+```
+
 
 
 ### 4 Système de fichier
+
+- Téléchargement
+
+```sh
+wget -c https://rcn-ee.com/rootfs/eewiki/minfs/ubuntu-18.04.1-minimal-armhf-2018-07-30.tar.xz
+```
+
+- unzip et le mettre sur la carte SD
+
+```sh
+tar xf ubuntu-18.04.1-minimal-armhf-2018-07-30.tar.xz
+cd ubuntu-18.04.1-minimal-armhf-2018-07-30/
+tar xfvp armhf-rootfs-ubuntu-bionic.tar /media/.../rootfs
+```
+
+
+
+### Voilà boot .... et c'est FINI!
 
