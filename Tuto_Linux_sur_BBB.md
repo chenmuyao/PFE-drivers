@@ -492,7 +492,7 @@ wget -c https://rcn-ee.com/rootfs/eewiki/minfs/ubuntu-18.04.1-minimal-armhf-2018
 ```sh
 tar xf ubuntu-18.04.1-minimal-armhf-2018-07-30.tar.xz
 cd ubuntu-18.04.1-minimal-armhf-2018-07-30/
-tar xfvp armhf-rootfs-ubuntu-bionic.tar /media/.../rootfs
+tar xfvp armhf-rootfs-ubuntu-bionic.tar -C /media/.../rootfs
 ```
 
 
