@@ -368,3 +368,18 @@ debian-9.5-minimal-armhf-2018-07-30.tar **Not working** 	Error : "Unable to cd /
 
 
 
+### 2018.10.20 First driver
+
+Resource: **DriverCreationGuide.pdf**
+
+1. The kernel version must correspond to the compiling environment of driver program
+   1. **Cannot use the official image. We must have the initial compiling environment.**
+2. The defconfig doesn't support ethernet on USB - **Maybe can be solved in the configuration** No... It's a driver...
+   1. **Have to connect with a router to transmit files**
+   2. `scp FILE_NAME ubuntu@192.168.1.100:/home/ubuntu/Drivers/first_drv/`
+   3. **SOLUTION : ** **use an ethernet to usb connector**, the one we used in TP
+3. **To program a LED** (Hardware)
+   1. Find out the PIN to toggle with - **Schema of board**
+   2. Find out how pins are initialized (steps, registers) - **User's Manuel**
+   3. Find out the helpful libraries - **Kernel codes**
+
