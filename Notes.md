@@ -383,3 +383,27 @@ Resource: **DriverCreationGuide.pdf**
    2. Find out how pins are initialized (steps, registers) - **User's Manuel**
    3. Find out the helpful libraries - **Kernel codes**
 
+
+
+### 2018.10.24
+
+https://stackoverflow.com/questions/29480980/generating-a-tarball-of-linux-modules
+
+**How to generate modules tarball**
+
+
+
+#### Pb : 
+
+Have to use the same version to compile the driver program. 
+
+​	Cannot use Buildroot (No make environment provided) 
+
+​	Cannot use official Image
+
+**Disadvantage** : 
+
+No **Ethernet over USB**. - Don't know how to add this function yet.
+
+Solution : Ethernet USB adapter + Ethernet Cable ?
+

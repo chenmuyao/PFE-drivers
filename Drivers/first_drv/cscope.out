@@ -1,0 +1,195 @@
+cscope 15 $HOME/ARMLINUX/PFE-drivers/Drivers/first_drv -q 0000000038 0000001283
+	@first_drv.c
+
+1 
+	~<lšux/moduË.h
+>
+
+5 
+__š™
+ 
+	$fœ¡_drv_š™
+()
+
+7 
+	`´štk
+(
+KERN_INFO
+ "----> My first driver init()\n");
+
+9 
+	}
+}
+
+11 
+__ex™
+ 
+	$fœ¡_drv_ex™
+()
+
+13 
+	`´štk
+(
+KERN_INFO
+ "<---- My first driverƒxit().\n");
+
+14 
+	}
+}
+
+16 
+moduË_š™
+(
+fœ¡_drv_š™
+);
+
+17 
+moduË_ex™
+(
+fœ¡_drv_ex™
+);
+
+19 
+MODULE_AUTHOR
+("Muyao");
+
+20 
+MODULE_DESCRIPTION
+("My firstest driver");
+
+21 
+MODULE_LICENSE
+("GPL");
+
+	@first_drv.mod.c
+
+1 
+	~<lšux/moduË.h
+>
+
+2 
+	~<lšux/v”magic.h
+>
+
+3 
+	~<lšux/compž”.h
+>
+
+5 
+MODULE_INFO
+(
+v”magic
+, 
+VERMAGIC_STRING
+);
+
+7 
+moduË
+ 
+__this_moduË
+
+
+8 
+__©Œibu‹__
+((
+£ùiÚ
+(".gnu.linkonce.this_module"))) = {
+
+9 .
+Çme
+ = 
+KBUILD_MODNAME
+,
+
+10 .
+	gš™
+ = 
+š™_moduË
+,
+
+11 #ifdeà
+CONFIG_MODULE_UNLOAD
+
+
+12 .
+	gex™
+ = 
+þ—nup_moduË
+,
+
+14 .
+	g¬ch
+ = 
+MODULE_ARCH_INIT
+,
+
+17 cÚ¡ 
+modv”siÚ_šfo
+ 
+	g____v”siÚs
+[]
+
+18 
+__u£d
+
+
+19 
+__©Œibu‹__
+((
+£ùiÚ
+("__versions"))) = {
+
+25 cÚ¡ 
+	g__moduË_d•’ds
+[]
+
+26 
+__u£d
+
+
+27 
+__©Œibu‹__
+((
+£ùiÚ
+(".modinfo"))) =
+
+31 
+MODULE_INFO
+(
+¤cv”siÚ
+, "211A156CAB366D9D062CDA7");
+
+	@/usr/include/linux/module.h
+
+2 #iâdeà
+_LINUX_MODULE_H
+
+
+3 
+	#_LINUX_MODULE_H
+
+
+	)
+
+6 
+	#MODULE_INIT_IGNORE_MODVERSIONS
+ 1
+
+	)
+
+7 
+	#MODULE_INIT_IGNORE_VERMAGIC
+ 2
+
+	)
+
+	@
+1
+.
+1
+/usr/include
+3
+56
+first_drv.c
+first_drv.mod.c
+/usr/include/linux/module.h

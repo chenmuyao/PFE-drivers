@@ -1,0 +1,14 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+KERN_DIR	Makefile	/^KERN_DIR = \/home\/chenmy\/ARMLINUX\/Linux_kernel\/linux$/;"	m
+__this_module	first_drv.mod.c	/^struct module __this_module$/;"	v	typeref:struct:module
+__used	first_drv.mod.c	/^__used$/;"	v	file:
+__used	first_drv.mod.c	/^__used$/;"	v	typeref:struct:____versions	file:
+first_drv_exit	first_drv.c	/^module_exit(first_drv_exit);$/;"	v
+first_drv_exit	first_drv.c	/^static void __exit first_drv_exit(void)$/;"	f	file:
+first_drv_init	first_drv.c	/^module_init(first_drv_init);$/;"	v
+first_drv_init	first_drv.c	/^static int __init first_drv_init(void)$/;"	f	file:

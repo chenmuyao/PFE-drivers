@@ -1,0 +1,1 @@
+cmd_/home/chenmy/ARMLINUX/PFE-drivers/Drivers/first_drv/built-in.o :=  rm -f /home/chenmy/ARMLINUX/PFE-drivers/Drivers/first_drv/built-in.o; arm-linux-gnueabihf-ar rcsD /home/chenmy/ARMLINUX/PFE-drivers/Drivers/first_drv/built-in.o
