@@ -405,5 +405,7 @@ Have to use the same version to compile the driver program.
 
 No **Ethernet over USB**. - Don't know how to add this function yet.
 
-Solution : Ethernet USB adapter + Ethernet Cable ?
+Solution : Ethernet USB adapter + Ethernet Cable ? - **Solved**(In the Tuto 2018.10.27)
+
+
 
