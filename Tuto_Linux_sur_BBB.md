@@ -115,11 +115,11 @@ Disklabel type: dos
 Disk identifier: 0x00000000
 ```
 
-m - menu
+**m - menu**
 
-d - supprimer une partition
+**d - supprimer une partition**
 
-- Créer la première partition du type FAT pour BOOT
+- **Créer la première partition du type FAT pour BOOT**
 
 ```sh
 Command (m for help): n
@@ -161,7 +161,7 @@ Device     Boot Start     End Sectors Size Id Type
 /dev/sdb1        2048 2099199 2097152   1G  c W95 FAT32 (LBA)
 ```
 
-- Créer la deuxième partition du type Linux pour FS
+- **Créer la deuxième partition du type Linux pour FS**
 
 ```sh
 Command (m for help): n
@@ -193,7 +193,7 @@ The partition table has been altered.
 
 
 
-- Formatter les deux partition
+- **Formatter les deux partition**
 
 ```sh
 sudo umount /dev/sdX1
@@ -298,6 +298,8 @@ C'est **am335x_boneblack_defconfig** qui nous intéresse.
 ```
 
 On peut utiliser `make menuconfig` pour changer des paramètres
+
+
 
 #### 2-3 Compilation croisée de Uboot
 
@@ -441,6 +443,29 @@ warning: (DVB_USB_PCTV452E) selects TTPCI_EEPROM which has unmet direct dependen
 #
 ```
 
+On peut utiliser `make menuconfig` pour changer des paramètres.
+
+
+
+Par exemple, nous aurons besoin de la communication **Ethernet sur USB**.
+
+```sh
+make ARCH=arm menuconfig
+```
+
+**"Device Drivers" -> "Network Device Support" -> "USB Network Adapters"**
+
+Enable ( "y" pour build-in ) les configs suivantes : 
+
+```sh
+ Multi-purpose USB Networking Framework
+ CDC Ethernet support (smart devices such as cable modems)
+ Simple USB Network Links (CDC Ethernet subset)
+ Embedded ARM Linux links (iPaq, ...)
+```
+
+
+
 - Compilation noyau (>10min selon la performance de la machine de développement)
 
 ```sh
@@ -479,6 +504,18 @@ uenvcmd=boot
 
 
 
+(S'il y a pas de "uImage", remplacer le par "zImage" et utiliser **uEnv.txt** comme le suivant)
+
+```
+bootargs=console=ttyO0,115200n8 root=/dev/mmcblk0p2 mem=1G rw rootwait
+bootcmd=mmc rescan; fatload mmc 0 0x82000000 zImage; fatload mmc 0 0x88000000 am335x-boneblack.dtb; bootz 0x82000000 - 0x88000000
+uenvcmd=boot
+```
+
+
+
+
+
 ### 4 Système de fichier
 
 - Téléchargement
@@ -499,3 +536,156 @@ tar xfvp armhf-rootfs-ubuntu-bionic.tar -C /media/.../rootfs
 
 ### Voilà boot .... et c'est FINI!
 
+
+
+### Pour aller plus loin : 
+
+#### Builder les modules dans le système de fichier
+
+```sh
+make INSTALL_MOD_PATH=$(pwd)/myroot modules_install
+tar -cf modules.tar -C myroot .
+tar -xf modules.tar -C /media/.../rootfs/	# unzip to the sd card
+```
+
+Sur la carte :
+
+```sh
+sudo depmod -e
+```
+
+
+
+#### Mettre en place la communication Ethernet sur USB
+
+Sur la carte :
+
+```sh
+ubuntu@arm:~$ ifconfig usb0 # initial status
+usb0: error fetching interface information: Device not found
+
+ubuntu@arm:~$ sudo modprobe g_ether # activate the module g_ether
+[sudo] password for ubuntu: 
+ubuntu@arm:~$ ifconfig usb0
+usb0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        ether a6:cc:22:49:da:c6  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ubuntu@arm:~$ sudo ifconfig usb0 192.168.6.2 netmask 255.255.255.0
+ubuntu@arm:~$ ifconfig usb0 	# final status
+usb0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.6.2  netmask 255.255.255.0  broadcast 192.168.6.255
+        inet6 fe80::a4cc:22ff:fe49:dac6  prefixlen 64  scopeid 0x20<link>
+        ether a6:cc:22:49:da:c6  txqueuelen 1000  (Ethernet)
+        RX packets 24  bytes 4295 (4.2 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 27  bytes 3749 (3.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+
+
+Sur le PC : 
+
+```sh
+chenmy@chenmy-UBT:~$ ifconfig	# initial status
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 153  bytes 10685 (10.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 153  bytes 10685 (10.6 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.8.103  netmask 255.255.255.0  broadcast 192.168.8.255
+        inet6 fe80::c24:27b8:5924:befa  prefixlen 64  scopeid 0x20<link>
+        ether a4:02:b9:46:5c:9e  txqueuelen 1000  (Ethernet)
+        RX packets 299  bytes 265709 (265.7 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 254  bytes 41223 (41.2 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+Après les manips sur la carte, on aura une autre liaison ethernet qui apparait : 
+
+```sh
+chenmy@chenmy-UBT:~$ ifconfig
+enp0s20f0u1i1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::b47e:902b:4430:f4fe  prefixlen 64  scopeid 0x20<link>
+        ether ce:8b:5b:84:c1:ce  txqueuelen 1000  (Ethernet)
+        RX packets 28  bytes 3427 (3.4 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 65  bytes 11953 (11.9 KB)
+        TX errors 60  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 720  bytes 55059 (55.0 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 720  bytes 55059 (55.0 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.8.103  netmask 255.255.255.0  broadcast 192.168.8.255
+        inet6 fe80::c24:27b8:5924:befa  prefixlen 64  scopeid 0x20<link>
+        ether a4:02:b9:46:5c:9e  txqueuelen 1000  (Ethernet)
+        RX packets 5468  bytes 4658414 (4.6 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4077  bytes 823185 (823.1 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+
+
+Configurer l'interface qui apparait : `enp0s20f0u1i1`
+
+```sh
+chenmy@chenmy-UBT:~$ sudo ifconfig enp0s20f0u1i1 192.168.6.1 netmask 255.255.255.0
+chenmy@chenmy-UBT:~$ ifconfig enp0s20f0u1i1
+enp0s20f0u1i1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.6.1  netmask 255.255.255.0  broadcast 192.168.6.255
+        ether ce:8b:5b:84:c1:ce  txqueuelen 1000  (Ethernet)
+        RX packets 28  bytes 3427 (3.4 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 100  bytes 17218 (17.2 KB)
+        TX errors 60  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+
+
+Maintenant, la liaison Ethernet sur USB est établie : 
+
+```sh
+chenmy@chenmy-UBT:~$ ping 192.168.6.2	# PC
+PING 192.168.6.2 (192.168.6.2) 56(84) bytes of data.
+64 bytes from 192.168.6.2: icmp_seq=1 ttl=64 time=0.798 ms
+64 bytes from 192.168.6.2: icmp_seq=2 ttl=64 time=0.794 ms
+64 bytes from 192.168.6.2: icmp_seq=3 ttl=64 time=0.431 ms
+^C
+--- 192.168.6.2 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2034ms
+rtt min/avg/max/mdev = 0.431/0.674/0.798/0.173 ms
+
+
+ubuntu@arm:~$ ping 192.168.6.1			# BBB
+PING 192.168.6.1 (192.168.6.1) 56(84) bytes of data.
+64 bytes from 192.168.6.1: icmp_seq=1 ttl=64 time=0.657 ms
+64 bytes from 192.168.6.1: icmp_seq=2 ttl=64 time=0.614 ms
+64 bytes from 192.168.6.1: icmp_seq=3 ttl=64 time=0.635 ms
+^C
+--- 192.168.6.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 0.614/0.635/0.657/0.027 ms
+
+```
+
+Pour copier des fichiers, utiliser la commande `scp FILE_NAME ubuntu@192.168.6.2:/home/ubuntu/FILE_PATH`
+
+( Activer SSH d'abord )
