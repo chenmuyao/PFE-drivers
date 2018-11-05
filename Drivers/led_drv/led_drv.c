@@ -35,8 +35,39 @@ int major; 	// Device class
 static int __init led_drv_init(void)
 {
 	printk(KERN_INFO "----> Led driver init()\n");
+/*
+register_chrdev — Register a major number for character devices.
+major
+major device number or 0 for dynamic allocation
+name
+name of this range of devices
+fops
+file operations associated with this devices
+*/
+
 	major = register_chrdev(0,"led_drv", &led_drv_fops);
-	leddrv_class = class_create(THIS_MODULE, "leddrv"); // ??
+/*
+class_create — create a struct class structure
+owner
+pointer to the module that is to “own” this struct class
+name
+pointer to a string for the name of this class.
+*/
+	leddrv_class = class_create(THIS_MODULE, "leddrv"); 
+/*
+device_create — creates a device and registers it with sysfs
+
+class
+pointer to the struct class that this device should be registered to
+parent
+pointer to the parent struct device of this new device, if any
+devt
+the dev_t for the char device to be added
+fmt
+string for the device's name
+...
+variable arguments
+*/	
 	leddrv_class_dev = device_create(leddrv_class, NULL , MKDEV(major,0), NULL, "xyz");
 	gpio_request(LED1, "sysfs");
 	gpio_export(LED1, false);

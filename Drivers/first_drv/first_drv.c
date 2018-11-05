@@ -2,12 +2,14 @@
 
 //#error Are we building this file?
 
+// insmod first_drv.ko (kernel object)
 static int __init first_drv_init(void)
 {
 	printk(KERN_INFO "----> My first driver init()\n");
 	return 0;
 }
 
+// rmmod first_drv
 static void __exit first_drv_exit(void)
 {
 	printk(KERN_INFO "<---- My first driver exit().\n");
