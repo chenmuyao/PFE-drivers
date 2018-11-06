@@ -3,6 +3,15 @@ Embedded Linux Drivers development
 
 
 
+### 06/11/2018 RdV N°4
+
+- Tuto ok
+- Driver LED ok
+- En cours : Driver SPI et I2C
+- Problème de machine...
+
+
+
 ### 16/10/2018 RdV N°3
 
 #### Bilan de Période 1
