@@ -6,90 +6,101 @@
 #include <linux/init.h>
 //#error Are we building this file?
 
-#define LED1	49 
 
 static struct class 				*spidrv_class;
 static struct device *spidrv_class_dev;
+static struct spi_device *spi_eeprom_dev;
+int major; 	// Device class
+static unsigned char *ker_buf;
 
-static int spi_drv_open(struct inode *inode, struct file *file)
+
+static ssize_t eeprom_write(struct file *file, const char __user *buf, size_t count, loff_t * ppos)
 {
-	gpio_direction_output(LED1, 0);
+	int ret;
+	if (count > 4096)
+        return -EINVAL;
+	ret = copy_from_user(ker_buf, buf, count);
+	spi_write(spi_eeprom_dev,ker_buf,count);
 	return 0;
 }
 
-static ssize_t spi_drv_write(struct file *file, const char __user *buf, size_t count, loff_t * ppos)
-{
-	int val;
-	copy_from_user(&val, buf, count);
-	gpio_set_value(LED1, val);
-	return 0;
-}
-
-static struct file_operations spi_drv_fops = {
+static struct file_operations eeprom_ops = {
 	.owner 	= THIS_MODULE,
-	.open 	= spi_drv_open,
-	.write	= spi_drv_write,
+	.ioctl		= eeprom_ioctl,
+	.write	= eeprom_write,
 };
 
-int major; 	// Device class
-static int __init spi_drv_init(void)
+static int __devinit spi_eeprom_probe(struct spi_device *spi)
 {
-	printk(KERN_INFO "----> Spi driver init()\n");
-/*
-register_chrdev — Register a major number for character devices.
-major
-major device number or 0 for dynamic allocation
-name
-name of this range of devices
-fops
-file operations associated with this devices
-*/
+    spi_oled_dev = spi;
+    //spi_oled_dc_pin = (int)spi->dev.platform_data;
+    //s3c2410_gpio_cfgpin(spi_oled_dc_pin, S3C2410_GPIO_OUTPUT);
+    //s3c2410_gpio_cfgpin(spi->chip_select, S3C2410_GPIO_OUTPUT);
 
-	major = register_chrdev(0,"spi_drv", &spi_drv_fops);
-/*
-class_create — create a struct class structure
-owner
-pointer to the module that is to “own” this struct class
-name
-pointer to a string for the name of this class.
-*/
-	spidrv_class = class_create(THIS_MODULE, "spidrv"); 
-/*
-device_create — creates a device and registers it with sysfs
+    ker_buf = kmalloc(4096, GFP_KERNEL);
+    
+    major = register_chrdev(0, "eeprom", &eeprom_ops);
 
-class
-pointer to the struct class that this device should be registered to
-parent
-pointer to the parent struct device of this new device, if any
-devt
-the dev_t for the char device to be added
-fmt
-string for the device's name
-...
-variable arguments
-*/	
-	spidrv_class_dev = device_create(spidrv_class, NULL , MKDEV(major,0), NULL, "xyz");
-	gpio_request(LED1, "sysfs");
-	gpio_export(LED1, false);
+	spidrv_class = class_create(THIS_MODULE, "eeprom");
+
+	device_create(spidrv_class, NULL, MKDEV(major, 0), NULL, "eeprom"); /* /dev/eeprom */
+    
+    return 0;
+}
+
+static int __devexit spi_eeprom_remove(struct spi_device *spi)
+{
+
+	device_destroy(spidrv_class, MKDEV(major, 0));
+	class_destroy(spidrv_class);
+	unregister_chrdev(major, "eeprom");
+
+    kfree(ker_buf);
+    
 	return 0;
 }
 
-static void __exit spi_drv_exit(void)
-{
-	unregister_chrdev(major,"spi_drv");
-	device_unregister(spidrv_class_dev);
-	class_destroy(spidrv_class);
 
-	gpio_free(LED1);
+static struct spi_driver spi_eeprom_drv = {
+	.driver = {
+		.name	= "eeprom",
+		.owner	= THIS_MODULE,
+	},
+	.probe		= spi_eeprom_probe,
+	.remove	= __devexit_p(spi_eeprom_remove),
+};
+/*
+int spi_register_driver(struct spi_driver *sdrv)
+{
+	sdrv->driver.bus = &spi_bus_type;
+	if (sdrv->probe)
+		sdrv->driver.probe = spi_drv_probe;
+	if (sdrv->remove)
+		sdrv->driver.remove = spi_drv_remove;
+	if (sdrv->shutdown)
+		sdrv->driver.shutdown = spi_drv_shutdown;
+	return driver_register(&sdrv->driver);
+}
+*/
+
+static int __init spi_eeprom_init(void)
+{
+	printk(KERN_INFO "----> Spi driver init()\n");
+	return spi_register_driver(&spi_eeprom_drv);
+}
+
+static void __exit spi_eeprom_exit(void)
+{
+	spi_unregister_driver(&spi_eeprom_drv);
 	printk(KERN_INFO "<---- Spi driver exit().\n");
 }
 
 
 
 
-module_init(spi_drv_init);
-module_exit(spi_drv_exit);
+module_init(spi_eeprom_init);
+module_exit(spi_eeprom_exit);
 
 MODULE_AUTHOR("Muyao");
-MODULE_DESCRIPTION("My spi driver");
+MODULE_DESCRIPTION("My eeprom 25LC020 spi driver");
 MODULE_LICENSE("GPL");

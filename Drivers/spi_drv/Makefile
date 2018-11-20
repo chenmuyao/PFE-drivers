@@ -9,4 +9,4 @@ clean:
 	make -C $(KERN_DIR) M=`pwd` modules clean
 	rm -rf modules.order
 
-obj-m   += spi_drv.o
+obj-m   += spi_info.o
