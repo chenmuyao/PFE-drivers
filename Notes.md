@@ -408,4 +408,9 @@ No **Ethernet over USB**. - Don't know how to add this function yet.
 Solution : Ethernet USB adapter + Ethernet Cable ? - **Solved**(In the Tuto 2018.10.27)
 
 
-
+### 2018.11.18
+https://stackoverflow.com/questions/22632713/how-to-write-a-simple-linux-device-driver
+https://community.nxp.com/docs/DOC-335264
+https://fr.slideshare.net/sysplay/spi-drivers
+http://invo-tronics.com/spi-driver-for-linux-based-embedded-system/
+https://github.com/torvalds/linux/blob/master/drivers/misc/eeprom/at25.c
