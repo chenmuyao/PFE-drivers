@@ -413,4 +413,4 @@ https://stackoverflow.com/questions/22632713/how-to-write-a-simple-linux-device-
 https://community.nxp.com/docs/DOC-335264
 https://fr.slideshare.net/sysplay/spi-drivers
 http://invo-tronics.com/spi-driver-for-linux-based-embedded-system/
-
+https://github.com/torvalds/linux/blob/master/drivers/misc/eeprom/at25.c
