@@ -6,12 +6,12 @@
 
 static struct spi_board_info spi_info_25lc020[] = {
 	 {
-        .modalias = "eeprom",     /*Device name*/ 
-        .max_speed_hz = 10000000,  /* max spi clock (SCK) speed in HZ */
+        .modalias = "eeprom",     /*Device name corresponding to spi_driver */ 
+        .max_speed_hz = 10000000,  /* 10 MHz max. Clock Frequency*/
         .bus_num = 1,     /* eeprom will be connected to bus 1 */
         .mode    = SPI_MODE_0,
-        .chip_select   = 0 ,    /*Depends to spi_master */
-        // .platform_data = (const void *)S3C2410_GPG(4) , /* oled_dc, 它在spi_driver里使用 */
+        .chip_select   = 0,    /*Depends to spi_master TODO to be verified*/
+        // .platform_data = (const void *)S3C2410_GPG(4) , /* used in spi_driver (optional) */
      }            	 
 };
 
