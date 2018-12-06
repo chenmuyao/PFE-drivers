@@ -1,0 +1,1 @@
+cmd_/home/chenmy/ARMLINUX/PFE-drivers/Drivers/spi_drv2/spi_info.ko := arm-linux-gnueabihf-ld -EL -r  -T /home/chenmy/ARMLINUX/Linux_kernel/linux/scripts/module-common.lds --build-id  -o /home/chenmy/ARMLINUX/PFE-drivers/Drivers/spi_drv2/spi_info.ko /home/chenmy/ARMLINUX/PFE-drivers/Drivers/spi_drv2/spi_info.o /home/chenmy/ARMLINUX/PFE-drivers/Drivers/spi_drv2/spi_info.mod.o
