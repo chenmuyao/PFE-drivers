@@ -1,0 +1,1 @@
+cmd_/home/chenmy/ARMLINUX/PFE-drivers/Drivers/i2c_drv/i2c_dev.ko := arm-linux-gnueabihf-ld -EL -r  -T /home/chenmy/ARMLINUX/Linux_kernel/linux/scripts/module-common.lds --build-id  -o /home/chenmy/ARMLINUX/PFE-drivers/Drivers/i2c_drv/i2c_dev.ko /home/chenmy/ARMLINUX/PFE-drivers/Drivers/i2c_drv/i2c_dev.o /home/chenmy/ARMLINUX/PFE-drivers/Drivers/i2c_drv/i2c_dev.mod.o

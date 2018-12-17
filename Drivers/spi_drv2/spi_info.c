@@ -18,6 +18,7 @@ static struct spi_board_info const spi_info_25lc020[] = {
         .max_speed_hz = 10000000,  /* 10 MHz max. Clock Frequency*/
         .bus_num = 1,     /* eeprom will be connected to bus 1 */
         .mode    = SPI_MODE_0,
+        ///home/chenmy/ARMLINUX/Linux_kernel/linux/drivers/spi/spi-omap2-mcspi.c  line 1192
         .chip_select   = 1,    /*Depends to spi_master TODO to be verified*/
         .platform_data = NULL , /* used in spi_driver (optional) */
      }            	 

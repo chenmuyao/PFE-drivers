@@ -417,3 +417,7 @@ https://fr.slideshare.net/sysplay/spi-drivers
 http://invo-tronics.com/spi-driver-for-linux-based-embedded-system/
 
 https://elixir.bootlin.com/linux/v3.8/source/drivers/misc/eeprom/at25.c
+
+
+
+http://processors.wiki.ti.com/index.php/AM335x_McSPI_Driver%27s_Guide TI am335x SPI 
