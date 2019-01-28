@@ -421,3 +421,11 @@ https://elixir.bootlin.com/linux/v3.8/source/drivers/misc/eeprom/at25.c
 
 
 http://processors.wiki.ti.com/index.php/AM335x_McSPI_Driver%27s_Guide TI am335x SPI 
+
+
+
+### 2018.1.8
+
+https://www.kernel.org/doc/Documentation/blockdev/ramdisk.txt
+
+https://myroughnotes.wordpress.com/2012/10/08/sample-block-device-driver-linux-kernel-3-x/
